@@ -11,6 +11,10 @@ export default class OrderItem {
         this.validate();
     }
 
+    get price(): number {
+        return this._price;
+    }
+
     validate(): void {
         if (!this._id) {
             throw new Error("ID is required");

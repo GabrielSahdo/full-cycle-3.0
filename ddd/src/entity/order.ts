@@ -13,12 +13,16 @@ export default class Order {
         this.validate();
     }
 
+    total(): number {
+        return this._items.reduce((total, item) => total + item.price, 0);
+    }
+
     validate(): void {
         if (!this._id) {
             throw new Error("ID is required");
         }
 
-        if (!this._items || this._items.length === 0) {
+        if (Array.isArray(this._items) && this._items.length === 0) {
             throw new Error("Items are required");
         }
 

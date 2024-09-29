@@ -47,6 +47,12 @@ export default class Customer {
         return this._name;
     }
 
+    set name(name: string) {
+        this._name = name;
+
+        this.validate();
+    }
+
     get active(): boolean {
         return this._active;
     }
