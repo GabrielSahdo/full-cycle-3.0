@@ -21,11 +21,19 @@ describe("Order Unit Tests", () => {
             new OrderItem("1", "Item 1", 10),
         ];
 
-        assertThrows(() => new Order("", customerID, items), Error, "ID is required");
+        assertThrows(
+            () => new Order("", customerID, items),
+            Error,
+            "ID is required",
+        );
     });
 
     it("Should not be possible to create an order without items", () => {
-        assertThrows(() => new Order("123", "123", []), Error, "Items are required");
+        assertThrows(
+            () => new Order("123", "123", []),
+            Error,
+            "Items are required",
+        );
     });
 
     it("Should not be possible to create an order without customerID", () => {
@@ -33,7 +41,11 @@ describe("Order Unit Tests", () => {
             new OrderItem("1", "Item 1", 10),
         ];
 
-        assertThrows(() => new Order("123", "", items), Error, "Customer ID is required");
+        assertThrows(
+            () => new Order("123", "", items),
+            Error,
+            "Customer ID is required",
+        );
     });
 
     it("Should return the total of the order", () => {

@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert";
 import { assertThrows } from "@std/assert/throws";
-import { describe, it } from "@std/testing/bdd"
+import { describe, it } from "@std/testing/bdd";
 
 import Customer from "./customer.ts";
 import Address from "./address.ts";
@@ -44,7 +44,11 @@ describe("Customer Unit Tests", () => {
     });
 
     it("Should not be possible to create a customer without id", () => {
-        assertThrows(() => new Customer("", "Gabriel"), Error, "ID is required");
+        assertThrows(
+            () => new Customer("", "Gabriel"),
+            Error,
+            "ID is required",
+        );
     });
 
     it("Should not be possible to create a customer without name", () => {
