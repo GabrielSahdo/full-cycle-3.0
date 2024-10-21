@@ -1,0 +1,4 @@
+domain-service:
+    1. stateless
+    2. beware if there are many functions in the service, it may be a sign that the service is not cohesive
+    3. operations that does not belong to any entity

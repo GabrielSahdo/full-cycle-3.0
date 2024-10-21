@@ -56,4 +56,22 @@ describe("Customer Unit Tests", () => {
         const customer = new Customer("123", "Gabriel");
         assertThrows(() => customer.changeName(""), Error, "Name is required");
     });
+
+    it("should not be possible to have a negative reward points", () => {
+        assertThrows(
+            () => {
+                const c = new Customer("123", "Gabriel");
+                return c.addRewardPoints(-1);
+            },
+            Error,
+            "Reward points must be greater than or equal to 0",
+        );
+    });
+
+    it("should add the reward points successfully", () => {
+        const c = new Customer("123", "Gabriel");
+        c.addRewardPoints(10);
+
+        assertEquals(c.rewardPoints, 10);
+    });
 });

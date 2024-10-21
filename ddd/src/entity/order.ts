@@ -20,6 +20,10 @@ export default class Order {
         );
     }
 
+    rewardPoints(): number {
+        return this.total() / 2;
+    }
+
     validate(): void {
         if (!this._id) {
             throw new Error("ID is required");
