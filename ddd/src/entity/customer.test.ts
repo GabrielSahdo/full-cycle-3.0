@@ -6,13 +6,13 @@ import Customer from "./customer.ts";
 import Address from "./address.ts";
 
 describe("Customer Unit Tests", () => {
-    it("Customer should be created with id and name", () => {
+    it("Should create a customer", () => {
         const customer = new Customer("123", "Gabriel");
         assertEquals(customer.id, "123");
         assertEquals(customer.name, "Gabriel");
     });
 
-    it("Customer should be created inactive", () => {
+    it("Should create a customer with status inactive", () => {
         const customer = new Customer("123", "Gabriel");
         assertEquals(customer.active, false);
     });
@@ -54,6 +54,6 @@ describe("Customer Unit Tests", () => {
     it("Should not be possible to create a customer without name", () => {
         assertThrows(() => new Customer("123", ""), Error, "Name is required");
         const customer = new Customer("123", "Gabriel");
-        assertThrows(() => customer.name = "", Error, "Name is required");
+        assertThrows(() => customer.changeName(""), Error, "Name is required");
     });
 });

@@ -1,6 +1,5 @@
-import { describe, it } from "@std/testing/bdd";
-
 import Product from "./product.ts";
+import { describe, it } from "@std/testing/bdd";
 import { assertEquals, assertThrows } from "@std/assert";
 
 describe("Product Unit Tests", () => {

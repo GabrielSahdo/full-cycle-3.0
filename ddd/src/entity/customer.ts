@@ -27,6 +27,12 @@ export default class Customer {
         this._address = address;
     }
 
+    changeName(name: string): void {
+        this._name = name;
+
+        this.validate();
+    }
+
     deactivate(): void {
         this._active = false;
     }
@@ -45,12 +51,6 @@ export default class Customer {
 
     get name(): string {
         return this._name;
-    }
-
-    set name(name: string) {
-        this._name = name;
-
-        this.validate();
     }
 
     get active(): boolean {
