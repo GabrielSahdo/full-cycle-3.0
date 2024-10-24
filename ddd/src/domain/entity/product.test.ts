@@ -1,6 +1,6 @@
 import Product from "./product.ts";
-import { describe, it } from "@std/testing/bdd";
-import { assertEquals, assertThrows } from "@std/assert";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { assertEquals, assertThrows } from "jsr:@std/assert";
 
 describe("Product Unit Tests", () => {
     it("Should be created with id, name and price", () => {

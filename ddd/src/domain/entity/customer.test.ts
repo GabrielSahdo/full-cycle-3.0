@@ -1,6 +1,6 @@
-import { assertEquals } from "@std/assert";
-import { assertThrows } from "@std/assert/throws";
-import { describe, it } from "@std/testing/bdd";
+import { assertEquals } from "jsr:@std/assert";
+import { assertThrows } from "jsr:@std/assert/throws";
+import { describe, it } from "jsr:@std/testing/bdd";
 
 import Customer from "./customer.ts";
 import Address from "./address.ts";

@@ -1,18 +1,13 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@std/assert@1": "1.0.6",
+    "jsr:@std/assert@*": "1.0.6",
     "jsr:@std/assert@^1.0.6": "1.0.6",
-    "jsr:@std/data-structures@^1.0.4": "1.0.4",
-    "jsr:@std/fs@^1.0.4": "1.0.4",
     "jsr:@std/internal@^1.0.4": "1.0.4",
-    "jsr:@std/path@^1.0.6": "1.0.6",
-    "jsr:@std/testing@^1.0.3": "1.0.3",
+    "jsr:@std/testing@*": "1.0.3",
     "npm:@types/node@*": "22.5.4",
-    "npm:@types/node@^22.7.7": "22.7.7",
-    "npm:reflect-metadata@~0.2.2": "0.2.2",
-    "npm:sequelize-typescript@^2.1.6": "2.1.6_@types+node@22.5.4_@types+validator@13.12.2_reflect-metadata@0.2.2_sequelize@6.37.4",
-    "npm:sequelize@^6.37.4": "6.37.4",
+    "npm:sequelize-typescript@*": "2.1.6_@types+node@22.5.4_@types+validator@13.12.2_reflect-metadata@0.2.2_sequelize@6.37.4",
+    "npm:sqlite3@*": "5.1.7",
     "npm:sqlite3@^5.1.7": "5.1.7"
   },
   "jsr": {
@@ -22,29 +17,14 @@
         "jsr:@std/internal"
       ]
     },
-    "@std/data-structures@1.0.4": {
-      "integrity": "fa0e20c11eb9ba673417450915c750a0001405a784e2a4e0c3725031681684a0"
-    },
-    "@std/fs@1.0.4": {
-      "integrity": "2907d32d8d1d9e540588fd5fe0ec21ee638134bd51df327ad4e443aaef07123c",
-      "dependencies": [
-        "jsr:@std/path"
-      ]
-    },
     "@std/internal@1.0.4": {
       "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
-    },
-    "@std/path@1.0.6": {
-      "integrity": "ab2c55f902b380cf28e0eec501b4906e4c1960d13f00e11cfbcd21de15f18fed"
     },
     "@std/testing@1.0.3": {
       "integrity": "f98c2bee53860a5916727d7e7d3abe920dd6f9edace022e2d059f00d05c2cf42",
       "dependencies": [
         "jsr:@std/assert@^1.0.6",
-        "jsr:@std/data-structures",
-        "jsr:@std/fs",
-        "jsr:@std/internal",
-        "jsr:@std/path"
+        "jsr:@std/internal"
       ]
     }
   },
@@ -60,12 +40,6 @@
     },
     "@types/node@22.5.4": {
       "integrity": "sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==",
-      "dependencies": [
-        "undici-types"
-      ]
-    },
-    "@types/node@22.7.7": {
-      "integrity": "sha512-SRxCrrg9CL/y54aiMCG3edPKdprgMVGDXjA3gB8UmmBW5TcXzRUYAh8EWzTnSJFAd1rgImPELza+A3bJ+qxz8Q==",
       "dependencies": [
         "undici-types"
       ]
@@ -326,7 +300,7 @@
     "sequelize-typescript@2.1.6_@types+node@22.5.4_@types+validator@13.12.2_reflect-metadata@0.2.2_sequelize@6.37.4": {
       "integrity": "sha512-Vc2N++3en346RsbGjL3h7tgAl2Y7V+2liYTAOZ8XL0KTw3ahFHsyAUzOwct51n+g70I1TOUDgs06Oh6+XGcFkQ==",
       "dependencies": [
-        "@types/node@22.5.4",
+        "@types/node",
         "@types/validator",
         "glob",
         "reflect-metadata",
@@ -437,7 +411,7 @@
     "wkx@0.5.0": {
       "integrity": "sha512-Xng/d4Ichh8uN4l0FToV/258EjMGU9MGcA0HV2d9B/ZpZB3lqQm7nkOdZdm5GhKtLLhAE7PiVQwN4eN+2YJJUg==",
       "dependencies": [
-        "@types/node@22.5.4"
+        "@types/node"
       ]
     },
     "wrappy@1.0.2": {
@@ -449,21 +423,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/assert@1",
-      "jsr:@std/testing@^1.0.3",
-      "npm:@types/node@^22.7.7",
-      "npm:reflect-metadata@~0.2.2",
-      "npm:sequelize-typescript@^2.1.6",
-      "npm:sequelize@^6.37.4",
       "npm:sqlite3@^5.1.7"
-    ],
-    "packageJson": {
-      "dependencies": [
-        "npm:reflect-metadata@~0.2.2",
-        "npm:sequelize-typescript@^2.1.6",
-        "npm:sequelize@^6.37.4",
-        "npm:sqlite3@^5.1.7"
-      ]
-    }
+    ]
   }
 }

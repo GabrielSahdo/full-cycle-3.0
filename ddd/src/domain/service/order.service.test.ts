@@ -1,11 +1,11 @@
-import { describe, it } from "@std/testing/bdd";
-import { assertEquals } from "@std/assert";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { assertEquals } from "jsr:@std/assert";
 
 import Order from "../entity/order.ts";
 import OrderItem from "../entity/order_item.ts";
 import OrderService from "./order.service.ts";
 import Customer from "../entity/customer.ts";
-import { assertThrows } from "@std/assert/throws";
+import { assertThrows } from "jsr:@std/assert/throws";
 
 describe("Order service unit tests", () => {
     it("should get total of all orders", () => {

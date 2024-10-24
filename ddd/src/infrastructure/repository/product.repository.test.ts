@@ -1,7 +1,9 @@
-import { Sequelize } from "sequelize-typescript";
-import { afterEach, beforeEach, describe, it } from "@std/testing/bdd";
+import { afterEach, beforeEach, describe, it } from "jsr:@std/testing/bdd";
+import { assertEquals } from "jsr:@std/assert";
+
+import "npm:sqlite3";
+import { Sequelize } from "npm:sequelize-typescript";
 import ProductModel from "../db/sequelize/model/product.model.ts";
-import { assertEquals } from "@std/assert";
 
 describe("ProductRepository test", () => {
     let sequelize: Sequelize;
@@ -12,9 +14,9 @@ describe("ProductRepository test", () => {
             storage: ":memory:",
             logging: false,
             sync: { force: true },
+            models: [ProductModel],
         });
 
-        sequelize.addModels([ProductModel]);
         await sequelize.sync();
     });
 
@@ -22,7 +24,27 @@ describe("ProductRepository test", () => {
         await sequelize.close();
     });
 
-    it("test", () => {
-        assertEquals(1, 1);
+    it("test1", async () => {
+        await ProductModel.create({
+            id: "id1",
+            name: "Gabriel",
+            price: 10,
+        })
+
+        const product = await ProductModel.findOne();
+
+        assertEquals(product?.name, "Gabriel");
+    });
+
+    it("test2", async () => {
+        await ProductModel.create({
+            id: "id1",
+            name: "Gabriel1",
+            price: 10,
+        })
+
+        const product = await ProductModel.findOne();
+
+        assertEquals(product?.name, "Gabriel1");
     });
 });

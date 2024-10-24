@@ -1,4 +1,10 @@
-import { Column, Model, PrimaryKey, Table, DataType } from "sequelize-typescript";
+import {
+    Column,
+    DataType,
+    Model,
+    PrimaryKey,
+    Table,
+} from "npm:sequelize-typescript";
 
 @Table({
     tableName: "products",

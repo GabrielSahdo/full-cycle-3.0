@@ -1,5 +1,5 @@
-import { describe, it } from "@std/testing/bdd";
-import { assertEquals, assertThrows } from "@std/assert";
+import { describe, it } from "jsr:@std/testing/bdd";
+import { assertEquals, assertThrows } from "jsr:@std/assert";
 
 import OrderItem from "./order_item.ts";
 import Order from "./order.ts";
