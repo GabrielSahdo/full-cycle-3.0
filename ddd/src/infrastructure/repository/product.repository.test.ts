@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, it } from "jsr:@std/testing/bdd";
-import { assertEquals } from "jsr:@std/assert";
-
+import { assertEquals, assertRejects } from "jsr:@std/assert";
 import { Sequelize } from "npm:sequelize-typescript";
+
 import ProductModel from "../db/sequelize/model/product.model.ts";
 import Product from "../../domain/entity/product.ts";
 import ProductRepository from "./product.repository.ts";
@@ -32,8 +32,6 @@ describe("ProductRepository test", () => {
         await repo.create(product);
 
         const productDB = await ProductModel.findByPk(product.id);
-        
-        console.log(product, productDB?.toJSON())
         assertEquals(productDB?.toJSON(), {
             id: product.id,
             name: product.name,
@@ -69,6 +67,19 @@ describe("ProductRepository test", () => {
         const found = await repo.find(product.id);
 
         assertEquals(found, product);
+    });
+
+    it("should throw an error if the product is not found", async () => {
+        const repo = new ProductRepository();
+        const product = new Product("1", "Product 1", 100);
+
+        await repo.create(product);
+
+        await assertRejects(
+            () => repo.find("2"),
+            Error,
+            "Product not found",
+        );
     });
 
     it("should find all products", async () => {
