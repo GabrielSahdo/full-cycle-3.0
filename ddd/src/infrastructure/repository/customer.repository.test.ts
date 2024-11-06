@@ -66,7 +66,7 @@ describe("Customer Repository Test", () => {
             active: customer.active,
             rewardPoints: customer.rewardPoints,
         });
-    })
+    });
 
     it("should update a customer", async () => {
         const customer = new Customer("1", "Customer 1");
@@ -105,14 +105,18 @@ describe("Customer Repository Test", () => {
         customerWithAddress.setAddress(address);
         await customerRepository.create(customerWithAddress);
 
-        const foundCustomer = await customerRepository.find(customerWithAddress.id);
+        const foundCustomer = await customerRepository.find(
+            customerWithAddress.id,
+        );
 
         assertEquals(foundCustomer, customerWithAddress);
 
         const customerWithoutAddress = new Customer("2", "Customer 2");
         await customerRepository.create(customerWithoutAddress);
 
-        const foundCustomerWithoutAddress = await customerRepository.find(customerWithoutAddress.id);
+        const foundCustomerWithoutAddress = await customerRepository.find(
+            customerWithoutAddress.id,
+        );
 
         assertEquals(foundCustomerWithoutAddress, customerWithoutAddress);
     });

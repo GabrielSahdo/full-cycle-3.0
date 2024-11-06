@@ -21,12 +21,29 @@ export default class OrderItem {
         this.validate();
     }
 
+    get id(): string {
+        return this._id;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
     get price(): number {
         return this._price;
     }
 
-    get quantidade(): number {
+    get productId(): string {
+        return this._productId;
+    }
+
+    get quantity(): number {
         return this._quantity;
+    }
+
+    changeName(newName: string): void {
+        this._name = newName;
+        this.validate();
     }
 
     total(): number {

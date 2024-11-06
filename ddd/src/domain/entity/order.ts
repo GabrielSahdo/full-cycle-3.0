@@ -2,13 +2,25 @@ import type OrderItem from "./order_item.ts";
 
 export default class Order {
     private _id: string;
-    private _customerID: string;
+    private _customerId: string;
     private _items: OrderItem[];
 
-    constructor(id: string, customerID: string, items: OrderItem[]) {
+    get id(): string {
+        return this._id;
+    }
+
+    get customerId(): string {
+        return this._customerId;
+    }
+
+    get items(): OrderItem[] {
+        return this._items;
+    }
+
+    constructor(id: string, customerId: string, items: OrderItem[]) {
         this._id = id;
         this._items = items;
-        this._customerID = customerID;
+        this._customerId = customerId;
 
         this.validate();
     }
@@ -33,8 +45,18 @@ export default class Order {
             throw new Error("Items are required");
         }
 
-        if (!this._customerID) {
+        if (!this._customerId) {
             throw new Error("Customer ID is required");
         }
+    }
+
+    removeItem(orderItemId: string): void {
+        this._items = this._items.filter((item) => item.id !== orderItemId);
+        this.validate();
+    }
+
+    addItem(item: OrderItem): void {
+        this._items.push(item);
+        this.validate();
     }
 }

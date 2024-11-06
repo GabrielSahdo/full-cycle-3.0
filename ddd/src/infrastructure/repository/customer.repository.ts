@@ -75,7 +75,12 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
             const customer = new Customer(c.id, c.name);
 
             if (c.street) {
-                const address = new Address(c.street, c.number, c.zipcode, c.city);
+                const address = new Address(
+                    c.street,
+                    c.number,
+                    c.zipcode,
+                    c.city,
+                );
                 customer.setAddress(address);
             }
 
