@@ -6,3 +6,8 @@ domain-service:
 repositories:
     1. one by agregate.
     2. entity does not represent a table, but a business concept
+
+domain events:
+    1. nao se prenda a getters e setters, e sim a mudanças de dominio
+    2. deve representar uma acao do passado
+    3. normalmente utilziado pra notificar outros 'bounded context'
