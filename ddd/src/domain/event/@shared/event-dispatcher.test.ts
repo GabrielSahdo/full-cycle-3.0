@@ -11,7 +11,39 @@ describe("Domain Event Test", () => {
 
         eventDispatcher.register("ProductCreatedEvent", eventHandler);
 
-        assertExists(eventDispatcher.getEventHandlers("ProductCreatedEvenet"));
-        assertEquals(eventDispatcher.getEventHandlers("ProductCreatedEvent").length, 1);
+        const eventHandlers = eventDispatcher.getEventHandlers();
+
+        assertExists(eventHandlers);
+        assertEquals(eventHandlers.size, 1);
+
+        const productCreatedHandlers = eventHandlers.get("ProductCreatedEvent");
+        assertExists(productCreatedHandlers);
+        assertEquals(productCreatedHandlers[0], eventHandler);
+    });
+
+    it("shoud unregister an event handler", () => {
+        const eventDispatcher = new EventDispatcher();
+        const eventHandler = new SendEmailWhenProductIsCreatedHandler();
+
+        eventDispatcher.register("ProductCreatedEvent", eventHandler);
+        eventDispatcher.unregister("ProductCreatedEvent", eventHandler);
+
+        const eventHandlers = eventDispatcher.getEventHandlers();
+
+        assertExists(eventHandlers);
+        assertEquals(eventHandlers.size, 0);
+    });
+
+    it("should unregister all event handlers", () => {
+        const eventDispatcher = new EventDispatcher();
+        const eventHandler = new SendEmailWhenProductIsCreatedHandler();
+
+        eventDispatcher.register("ProductCreatedEvent", eventHandler);
+        eventDispatcher.unregisterAll();
+
+        const eventHandlers = eventDispatcher.getEventHandlers();
+
+        assertExists(eventHandlers);
+        assertEquals(eventHandlers.size, 0);
     });
 });
