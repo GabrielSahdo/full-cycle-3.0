@@ -1,11 +1,33 @@
 import type Product from "../entity/product.ts";
+import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface.ts";
+import ProductCreatedEvent from "../event/product/product-created.event.ts";
+import ProductRepositoryInterface from "../repository/product.repository.interface.ts";
 
 export default class ProductService {
-    static increasePrice(products: Product[], increasePercentage: number) {
+    private eventDispatcher: EventDispatcherInterface;
+    private productRepository: ProductRepositoryInterface;
+
+    constructor(
+        eventDispatcher: EventDispatcherInterface,
+        productRepository: ProductRepositoryInterface,
+    ) {
+        this.eventDispatcher = eventDispatcher;
+        this.productRepository = productRepository;
+    }
+
+    increasePrice(products: Product[], increasePercentage: number) {
         products.forEach((product) => {
             product.changePrice(
                 product.price + (product.price * (increasePercentage / 100)),
             );
         });
+    }
+
+    async saveProduct(product: Product) {
+        await this.productRepository.create(product);
+
+        const productCreatedEvent = new ProductCreatedEvent(product);
+
+        this.eventDispatcher.notify(productCreatedEvent);
     }
 }
