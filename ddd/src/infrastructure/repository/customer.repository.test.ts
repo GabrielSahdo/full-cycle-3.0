@@ -6,6 +6,7 @@ import CustomerModel from "../db/sequelize/model/customer.model.ts";
 import Customer from "../../domain/entity/customer.ts";
 import Address from "../../domain/entity/address.ts";
 import CustomerRepository from "./customer.repository.ts";
+import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
 
 describe("Customer Repository Test", () => {
     let sequelize: Sequelize;
@@ -32,7 +33,7 @@ describe("Customer Repository Test", () => {
     it("should create a customer with address", async () => {
         const customer = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customer.setAddress(address);
+        customer.setAddress(address, new EventDispatcher());
 
         await customerRepository.create(customer);
 
@@ -71,7 +72,7 @@ describe("Customer Repository Test", () => {
     it("should update a customer", async () => {
         const customer = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customer.setAddress(address);
+        customer.setAddress(address, new EventDispatcher());
         await customerRepository.create(customer);
 
         customer.changeName("Customer changed");
@@ -81,7 +82,7 @@ describe("Customer Repository Test", () => {
             "64124",
             "Townsville",
         );
-        customer.setAddress(newAddress);
+        customer.setAddress(newAddress, new EventDispatcher());
         customer.activate();
         await customerRepository.update(customer);
 
@@ -102,7 +103,7 @@ describe("Customer Repository Test", () => {
     it("should find a customer by id", async () => {
         const customerWithAddress = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customerWithAddress.setAddress(address);
+        customerWithAddress.setAddress(address, new EventDispatcher());
         await customerRepository.create(customerWithAddress);
 
         const foundCustomer = await customerRepository.find(
@@ -124,7 +125,7 @@ describe("Customer Repository Test", () => {
     it("should throw an error if could not find a customer", async () => {
         const customer = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customer.setAddress(address);
+        customer.setAddress(address, new EventDispatcher());
         await customerRepository.create(customer);
 
         await assertRejects(
@@ -137,12 +138,12 @@ describe("Customer Repository Test", () => {
     it("should find all the customers", async () => {
         const customer1 = new Customer("1", "Customer 1");
         const address1 = new Address("Street", "47", "64124", "Townsville");
-        customer1.setAddress(address1);
+        customer1.setAddress(address1, new EventDispatcher());
         await customerRepository.create(customer1);
 
         const customer2 = new Customer("2", "Customer 2");
         const address2 = new Address("Street", "47", "64124", "Townsville");
-        customer2.setAddress(address2);
+        customer2.setAddress(address2, new EventDispatcher());
         customer2.activate();
         await customerRepository.create(customer2);
 

@@ -2,6 +2,7 @@ import CustomerModel from "../db/sequelize/model/customer.model.ts";
 import Customer from "../../domain/entity/customer.ts";
 import Address from "../../domain/entity/address.ts";
 import type CustomerRepositoryInterface from "../../domain/repository/customer.repository.interface.ts";
+import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
 
 export default class CustomerRepository implements CustomerRepositoryInterface {
     async create(entity: Customer): Promise<void> {
@@ -58,7 +59,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
                 foundCustomer.zipcode,
                 foundCustomer.city,
             );
-            customer.setAddress(address);
+            customer.setAddress(address, new EventDispatcher());
         }
 
         if (foundCustomer.active) {
@@ -81,7 +82,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
                     c.zipcode,
                     c.city,
                 );
-                customer.setAddress(address);
+                customer.setAddress(address, new EventDispatcher());
             }
 
             if (c.active) {

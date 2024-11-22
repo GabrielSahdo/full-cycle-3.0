@@ -1,3 +1,5 @@
+import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface.ts";
+import CustomerAddressChangedEvent from "../event/customer/customer-address-changed.event.ts";
 import type Address from "./address.ts";
 
 export default class Customer {
@@ -28,8 +30,12 @@ export default class Customer {
         }
     }
 
-    setAddress(address: Address): void {
+    setAddress(address: Address, eventDispatcher: EventDispatcherInterface): void {
         this._address = address;
+
+        const event = new CustomerAddressChangedEvent(this);
+
+        eventDispatcher.notify(event);
     }
 
     changeName(name: string): void {
