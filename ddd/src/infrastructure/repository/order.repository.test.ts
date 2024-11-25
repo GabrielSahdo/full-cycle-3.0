@@ -16,6 +16,7 @@ import Product from "../../domain/entity/product.ts";
 import OrderItem from "../../domain/entity/order_item.ts";
 import Order from "../../domain/entity/order.ts";
 import OrderRepository from "./order.repository.ts";
+import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
 
 describe("Order Repository Test", () => {
     let sequelize: Sequelize;
@@ -44,7 +45,12 @@ describe("Order Repository Test", () => {
 
     it("Should create a new order", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("123", "Customer 1", address);
+        const customer = new Customer({
+            id: "123",
+            name: "Customer 1",
+            address,
+            eventDispatcher: new EventDispatcher(),
+        });
         await customerRepository.create(customer);
 
         const product = new Product("123", "Prouct 1", 10);
@@ -83,7 +89,12 @@ describe("Order Repository Test", () => {
 
     it("should find a newly created order", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("123", "Customer 1", address);
+        const customer = new Customer({
+            id: "123",
+            name: "Customer 1",
+            address,
+            eventDispatcher: new EventDispatcher(),
+        });
         await customerRepository.create(customer);
 
         const product = new Product("123", "Prouct 1", 10);
@@ -114,7 +125,12 @@ describe("Order Repository Test", () => {
 
     it("should find all orders", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("123", "Customer 1", address);
+        const customer = new Customer({
+            id: "123",
+            name: "Customer 1",
+            address,
+            eventDispatcher: new EventDispatcher(),
+        });
         await customerRepository.create(customer);
 
         const product = new Product("123", "Prouct 1", 10);
@@ -147,7 +163,12 @@ describe("Order Repository Test", () => {
 
     it("should successfully delete an order item from an order", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("123", "Customer 1", address);
+        const customer = new Customer({
+            id: "123",
+            name: "Customer 1",
+            address,
+            eventDispatcher: new EventDispatcher(),
+        });
         await customerRepository.create(customer);
 
         const product = new Product("123", "Prouct 1", 10);
@@ -181,7 +202,12 @@ describe("Order Repository Test", () => {
 
     it("should successfully update an order item from an order", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("123", "Customer 1", address);
+        const customer = new Customer({
+            id: "123",
+            name: "Customer 1",
+            address,
+            eventDispatcher: new EventDispatcher(),
+        });
         await customerRepository.create(customer);
 
         const product = new Product("123", "Prouct 1", 10);
@@ -215,7 +241,12 @@ describe("Order Repository Test", () => {
 
     it("should successfully add an order item to an existing order", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("123", "Customer 1", address);
+        const customer = new Customer({
+            id: "123",
+            name: "Customer 1",
+            address,
+            eventDispatcher: new EventDispatcher(),
+        });
         await customerRepository.create(customer);
 
         const product = new Product("123", "Prouct 1", 10);

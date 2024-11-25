@@ -9,8 +9,12 @@ import EventDispatcher from "../../@shared/event-dispatcher.ts";
 describe("LogWhenAddressIsChangedHandler", () => {
     it("should log the address change", () => {
         const address = new Address("Rua 1", "123", "123", "City");
-        const customer = new Customer("1", "John Doe");
-        customer.changeAddress(address, new EventDispatcher());
+        const customer = new Customer({
+            id: "1",
+            name: "John Doe",
+            eventDispatcher: new EventDispatcher(),
+        });
+        customer.changeAddress(address);
 
         const handler = new LogWhenAddressIsChangedHandler();
         const event = new CustomerAddressChangedEvent(customer);

@@ -2,6 +2,12 @@ import CustomerModel from "../db/sequelize/model/customer.model.ts";
 import Customer from "../../domain/entity/customer.ts";
 import Address from "../../domain/entity/address.ts";
 import type CustomerRepositoryInterface from "../../domain/repository/customer.repository.interface.ts";
+import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
+import CustomerCreatedEvent from "../../domain/event/customer/customer-created.event.ts";
+import LogWhenCustomerIsCreatedFirstHandler from "../../domain/event/customer/handler/log-when-customer-is-created-first.handler.ts";
+import LogWhenCustomerIsCreatedSecondHandler from "../../domain/event/customer/handler/log-when-customer-is-created-second.handler.ts";
+import CustomerAddressChangedEvent from "../../domain/event/customer/customer-address-changed.event.ts";
+import LogWhenAddressIsChangedHandler from "../../domain/event/customer/handler/log-when-address-is-changed.handler.ts";
 
 export default class CustomerRepository implements CustomerRepositoryInterface {
     async create(entity: Customer): Promise<void> {
@@ -49,52 +55,52 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
 
         if (!foundCustomer) throw new Error("Customer not found");
 
-        let address;
-
-        if (foundCustomer.street) {
-            address = new Address(
-                foundCustomer.street,
-                foundCustomer.number,
-                foundCustomer.zipcode,
-                foundCustomer.city,
-            );
-        }
-
-        const customer = new Customer(
-            foundCustomer.id,
-            foundCustomer.name,
-            address,
-        );
-
-        if (foundCustomer.active) {
-            customer.activate();
-        }
-
-        return customer;
+        return this.parseDbCustomer(foundCustomer);
     }
 
     async findAll(): Promise<Customer[]> {
         const customers = await CustomerModel.findAll();
 
-        return customers.map((c) => {
-            let address;
+        return customers.map((c) => this.parseDbCustomer(c));
+    }
 
-            if (c.street) {
-                address = new Address(
-                    c.street,
-                    c.number,
-                    c.zipcode,
-                    c.city,
-                );
-            }
+    private parseDbCustomer(dbCustomer: CustomerModel): Customer {
+        let address;
 
-            const customer = new Customer(c.id, c.name, address);
+        if (dbCustomer.street) {
+            address = new Address(
+                dbCustomer.street,
+                dbCustomer.number,
+                dbCustomer.zipcode,
+                dbCustomer.city,
+            );
+        }
 
-            if (c.active) {
-                customer.activate();
-            }
+        const eventDispatcher = new EventDispatcher();
+        eventDispatcher.register(
+            CustomerCreatedEvent.getEventName(),
+            new LogWhenCustomerIsCreatedFirstHandler(),
+        );
+        eventDispatcher.register(
+            CustomerCreatedEvent.getEventName(),
+            new LogWhenCustomerIsCreatedSecondHandler(),
+        );
+        eventDispatcher.register(
+            CustomerAddressChangedEvent.getEventName(),
+            new LogWhenAddressIsChangedHandler(),
+        )
 
-            return customer;
+        const customer = new Customer({
+            id: dbCustomer.id,
+            name: dbCustomer.name,
+            address,
+            eventDispatcher,
         });
+
+        if (dbCustomer.active) {
+            customer.activate();
+        }
+
+        return customer;
     }
 }

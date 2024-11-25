@@ -1,4 +1,4 @@
-import { describe, it } from "jsr:@std/testing/bdd";
+import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { assertEquals } from "jsr:@std/assert";
 
 import Order from "../entity/order.ts";
@@ -6,8 +6,16 @@ import OrderItem from "../entity/order_item.ts";
 import OrderService from "./order.service.ts";
 import Customer from "../entity/customer.ts";
 import { assertThrows } from "jsr:@std/assert/throws";
+import EventDispatcher from "../event/@shared/event-dispatcher.ts";
+import EventDispatcherFactory from "../event/@shared/event.dispatcher.factory.ts";
 
 describe("Order service unit tests", () => {
+    let eventDispatcher: EventDispatcher;
+
+    beforeEach(() => {
+        eventDispatcher = EventDispatcherFactory.create();
+    });
+
     it("should get total of all orders", () => {
         const item1 = new OrderItem("id1", "name", 100, "pid1", 1);
         const item2 = new OrderItem("id2", "name", 200, "pid2", 2);
@@ -20,7 +28,11 @@ describe("Order service unit tests", () => {
     });
 
     it("should place an order", () => {
-        const customer = new Customer("c1", "Customer 1");
+        const customer = new Customer({
+            id: "c1",
+            name: "Customer 1",
+            eventDispatcher,
+        });
         const item1 = new OrderItem("id1", "name", 10, "pid1", 1);
 
         const order = OrderService.placeOrder(customer, [item1]);
@@ -30,7 +42,11 @@ describe("Order service unit tests", () => {
     });
 
     it("should not be possible to place an order without items", () => {
-        const customer = new Customer("c1", "Customer 1");
+        const customer = new Customer({
+            id: "c1",
+            name: "Customer 1",
+            eventDispatcher,
+        });
 
         assertThrows(
             () => OrderService.placeOrder(customer, []),

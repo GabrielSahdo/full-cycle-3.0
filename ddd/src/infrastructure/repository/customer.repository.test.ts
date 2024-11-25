@@ -7,10 +7,18 @@ import Customer from "../../domain/entity/customer.ts";
 import Address from "../../domain/entity/address.ts";
 import CustomerRepository from "./customer.repository.ts";
 import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
+import CustomerCreatedEvent from "../../domain/event/customer/customer-created.event.ts";
+import LogWhenCustomerIsCreatedFirstHandler from "../../domain/event/customer/handler/log-when-customer-is-created-first.handler.ts";
+import LogWhenCustomerIsCreatedSecondHandler from "../../domain/event/customer/handler/log-when-customer-is-created-second.handler.ts";
+import CustomerAddressChangedEvent from "../../domain/event/customer/customer-address-changed.event.ts";
+import LogWhenAddressIsChangedHandler from "../../domain/event/customer/handler/log-when-address-is-changed.handler.ts";
+import EventDispatcherInterface from "../../domain/event/@shared/event-dispatcher.interface.ts";
+import EventDispatcherFactory from "../../domain/event/@shared/event.dispatcher.factory.ts";
 
 describe("Customer Repository Test", () => {
     let sequelize: Sequelize;
     let customerRepository: CustomerRepository;
+    let eventDispatcher: EventDispatcherInterface;
 
     beforeEach(async () => {
         sequelize = new Sequelize({
@@ -24,6 +32,8 @@ describe("Customer Repository Test", () => {
         await sequelize.sync();
 
         customerRepository = new CustomerRepository();
+
+        eventDispatcher = EventDispatcherFactory.create();
     });
 
     afterEach(async () => {
@@ -32,7 +42,12 @@ describe("Customer Repository Test", () => {
 
     it("should create a customer with address", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("1", "Customer 1", address);
+        const customer = new Customer({
+            id: "1",
+            name: "Customer 1",
+            address,
+            eventDispatcher,
+        });
 
         await customerRepository.create(customer);
 
@@ -51,7 +66,11 @@ describe("Customer Repository Test", () => {
     });
 
     it("should create a customer without a address", async () => {
-        const customer = new Customer("1", "Customer 1");
+        const customer = new Customer({
+            id: "1",
+            name: "Customer 1",
+            eventDispatcher,
+        });
         await customerRepository.create(customer);
 
         const customerDB = await CustomerModel.findByPk(customer.id);
@@ -70,7 +89,12 @@ describe("Customer Repository Test", () => {
 
     it("should update a customer", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("1", "Customer 1", address);
+        const customer = new Customer({
+            id: "1",
+            name: "Customer 1",
+            address,
+            eventDispatcher,
+        });
         await customerRepository.create(customer);
 
         customer.changeName("Customer changed");
@@ -80,7 +104,7 @@ describe("Customer Repository Test", () => {
             "64124",
             "Townsville",
         );
-        customer.changeAddress(newAddress, new EventDispatcher());
+        customer.changeAddress(newAddress);
         customer.activate();
         await customerRepository.update(customer);
 
@@ -100,7 +124,12 @@ describe("Customer Repository Test", () => {
 
     it("should find a customer by id", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customerWithAddress = new Customer("1", "Customer 1", address);
+        const customerWithAddress = new Customer({
+            id: "1",
+            name: "Customer 1",
+            address,
+            eventDispatcher,
+        });
         await customerRepository.create(customerWithAddress);
 
         const foundCustomer = await customerRepository.find(
@@ -109,7 +138,11 @@ describe("Customer Repository Test", () => {
 
         assertEquals(foundCustomer, customerWithAddress);
 
-        const customerWithoutAddress = new Customer("2", "Customer 2");
+        const customerWithoutAddress = new Customer({
+            id: "2",
+            name: "Customer 2",
+            eventDispatcher,
+        });
         await customerRepository.create(customerWithoutAddress);
 
         const foundCustomerWithoutAddress = await customerRepository.find(
@@ -121,7 +154,12 @@ describe("Customer Repository Test", () => {
 
     it("should throw an error if could not find a customer", async () => {
         const address = new Address("Street", "47", "64124", "Townsville");
-        const customer = new Customer("1", "Customer 1", address);
+        const customer = new Customer({
+            id: "1",
+            name: "Customer 1",
+            address,
+            eventDispatcher,
+        });
         await customerRepository.create(customer);
 
         await assertRejects(
@@ -133,15 +171,29 @@ describe("Customer Repository Test", () => {
 
     it("should find all the customers", async () => {
         const address1 = new Address("Street", "47", "64124", "Townsville");
-        const customer1 = new Customer("1", "Customer 1", address1);
+        const customer1 = new Customer({
+            id: "1",
+            name: "Customer 1",
+            address: address1,
+            eventDispatcher,
+        });
         await customerRepository.create(customer1);
 
         const address2 = new Address("Street", "47", "64124", "Townsville");
-        const customer2 = new Customer("2", "Customer 2", address2);
+        const customer2 = new Customer({
+            id: "2",
+            name: "Customer 2",
+            address: address2,
+            eventDispatcher,
+        });
         customer2.activate();
         await customerRepository.create(customer2);
 
-        const customer3 = new Customer("3", "Customer 3");
+        const customer3 = new Customer({
+            id: "3",
+            name: "Customer 3",
+            eventDispatcher,
+        });
         await customerRepository.create(customer3);
 
         const customers = await customerRepository.findAll();
