@@ -88,7 +88,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
         eventDispatcher.register(
             CustomerAddressChangedEvent.getEventName(),
             new LogWhenAddressIsChangedHandler(),
-        )
+        );
 
         const customer = new Customer({
             id: dbCustomer.id,

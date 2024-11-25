@@ -95,7 +95,7 @@ describe("Customer Unit Tests", () => {
 
         const eventNotifySpy = spy(eventDispatcher, "notify");
         customer.changeAddress(address);
-        
+
         assertSpyCalls(eventNotifySpy, 1);
     });
 
@@ -170,5 +170,16 @@ describe("Customer Unit Tests", () => {
         c.addRewardPoints(10);
 
         assertEquals(c.rewardPoints, 10);
+    });
+
+    it("should notify the dispatcher when the customer is created", () => {
+        const eventNotifySpy = spy(eventDispatcher, "notify");
+        new Customer({
+            id: "123",
+            name: "Gabriel",
+            eventDispatcher,
+        });
+
+        assertSpyCalls(eventNotifySpy, 1);
     });
 });
