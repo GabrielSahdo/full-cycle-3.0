@@ -5,13 +5,14 @@ import type Address from "./address.ts";
 export default class Customer {
     private _id: string;
     private _name: string;
-    private _address!: Address;
+    private _address?: Address;
     private _rewardPoints: number = 0;
     private _active: boolean = false;
 
-    constructor(id: string, name: string) {
+    constructor(id: string, name: string, address?: Address) {
         this._id = id;
         this._name = name;
+        this._address = address;
 
         this.validate();
     }
@@ -30,7 +31,10 @@ export default class Customer {
         }
     }
 
-    setAddress(address: Address, eventDispatcher: EventDispatcherInterface): void {
+    changeAddress(
+        address: Address,
+        eventDispatcher: EventDispatcherInterface,
+    ): void {
         this._address = address;
 
         const event = new CustomerAddressChangedEvent(this);
@@ -77,7 +81,7 @@ export default class Customer {
         return this._rewardPoints;
     }
 
-    get address(): Address {
+    get address(): Address | undefined {
         return this._address;
     }
 }

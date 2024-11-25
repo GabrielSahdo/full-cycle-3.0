@@ -31,9 +31,8 @@ describe("Customer Repository Test", () => {
     });
 
     it("should create a customer with address", async () => {
-        const customer = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customer.setAddress(address, new EventDispatcher());
+        const customer = new Customer("1", "Customer 1", address);
 
         await customerRepository.create(customer);
 
@@ -42,10 +41,10 @@ describe("Customer Repository Test", () => {
         assertEquals(customerDB?.toJSON(), {
             id: customer.id,
             name: customer.name,
-            street: customer.address.street,
-            number: customer.address.number,
-            zipcode: customer.address.zip,
-            city: customer.address.city,
+            street: customer.address?.street,
+            number: customer.address?.number,
+            zipcode: customer.address?.zip,
+            city: customer.address?.city,
             active: customer.active,
             rewardPoints: customer.rewardPoints,
         });
@@ -70,9 +69,8 @@ describe("Customer Repository Test", () => {
     });
 
     it("should update a customer", async () => {
-        const customer = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customer.setAddress(address, new EventDispatcher());
+        const customer = new Customer("1", "Customer 1", address);
         await customerRepository.create(customer);
 
         customer.changeName("Customer changed");
@@ -82,7 +80,7 @@ describe("Customer Repository Test", () => {
             "64124",
             "Townsville",
         );
-        customer.setAddress(newAddress, new EventDispatcher());
+        customer.changeAddress(newAddress, new EventDispatcher());
         customer.activate();
         await customerRepository.update(customer);
 
@@ -91,19 +89,18 @@ describe("Customer Repository Test", () => {
         assertEquals(updatedCustomer?.toJSON(), {
             id: customer.id,
             name: customer.name,
-            street: customer.address.street,
-            number: customer.address.number,
-            zipcode: customer.address.zip,
-            city: customer.address.city,
+            street: customer.address?.street,
+            number: customer.address?.number,
+            zipcode: customer.address?.zip,
+            city: customer.address?.city,
             active: customer.active,
             rewardPoints: customer.rewardPoints,
         });
     });
 
     it("should find a customer by id", async () => {
-        const customerWithAddress = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customerWithAddress.setAddress(address, new EventDispatcher());
+        const customerWithAddress = new Customer("1", "Customer 1", address);
         await customerRepository.create(customerWithAddress);
 
         const foundCustomer = await customerRepository.find(
@@ -123,9 +120,8 @@ describe("Customer Repository Test", () => {
     });
 
     it("should throw an error if could not find a customer", async () => {
-        const customer = new Customer("1", "Customer 1");
         const address = new Address("Street", "47", "64124", "Townsville");
-        customer.setAddress(address, new EventDispatcher());
+        const customer = new Customer("1", "Customer 1", address);
         await customerRepository.create(customer);
 
         await assertRejects(
@@ -136,14 +132,12 @@ describe("Customer Repository Test", () => {
     });
 
     it("should find all the customers", async () => {
-        const customer1 = new Customer("1", "Customer 1");
         const address1 = new Address("Street", "47", "64124", "Townsville");
-        customer1.setAddress(address1, new EventDispatcher());
+        const customer1 = new Customer("1", "Customer 1", address1);
         await customerRepository.create(customer1);
 
-        const customer2 = new Customer("2", "Customer 2");
         const address2 = new Address("Street", "47", "64124", "Townsville");
-        customer2.setAddress(address2, new EventDispatcher());
+        const customer2 = new Customer("2", "Customer 2", address2);
         customer2.activate();
         await customerRepository.create(customer2);
 

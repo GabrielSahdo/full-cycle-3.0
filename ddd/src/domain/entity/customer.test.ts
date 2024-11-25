@@ -26,24 +26,28 @@ describe("Customer Unit Tests", () => {
         assertThrows(() => customer.activate(), Error, "Address is required");
     });
 
-    it("should set a address for a customer successfully", () => {
+    it("should create a customer with address", () => {
+        const address = new Address("Rua 1", "123", "12345-123", "Cidade");
+        const customer = new Customer("123", "Gabriel", address);
+
+        assertEquals(customer.address, address);
+    });
+
+    it("should change a address for a customer successfully", () => {
         const eventDispatcher = new EventDispatcher();
 
         const customer = new Customer("123", "Gabriel");
         const address = new Address("Rua 1", "123", "12345-123", "Cidade");
 
-        customer.setAddress(address, eventDispatcher);
+        customer.changeAddress(address, eventDispatcher);
 
         assertEquals(customer.address, address);
     });
 
     it("Should activate customer with address", () => {
-        const eventDispatcher = new EventDispatcher();
-
-        const customer = new Customer("123", "Gabriel");
         const address = new Address("Rua 1", "123", "12345-123", "Cidade");
+        const customer = new Customer("123", "Gabriel", address);
 
-        customer.setAddress(address, eventDispatcher);
         customer.activate();
 
         assertEquals(customer.active, true);
@@ -52,24 +56,25 @@ describe("Customer Unit Tests", () => {
     it("should call the dispatcher when the address is changed", () => {
         const eventDispatcher = new EventDispatcher();
         const handler = new LogWhenAddressIsChangedHandler();
-        eventDispatcher.register(CustomerAddressChangedEvent.getEventName(), handler);
+        eventDispatcher.register(
+            CustomerAddressChangedEvent.getEventName(),
+            handler,
+        );
 
         const handlerSpy = spy(handler, "handle");
 
         const customer = new Customer("123", "Gabriel");
         const address = new Address("Rua 1", "123", "12345-123", "Cidade");
 
-        customer.setAddress(address, eventDispatcher);
+        customer.changeAddress(address, eventDispatcher);
 
         assertSpyCalls(handlerSpy, 1);
     });
 
     it("Should deactivate customer", () => {
-        const eventDispatcher = new EventDispatcher();
-        const customer = new Customer("123", "Gabriel");
         const address = new Address("Rua 1", "123", "12345-123", "Cidade");
+        const customer = new Customer("123", "Gabriel", address);
 
-        customer.setAddress(address, eventDispatcher);
         customer.activate();
         customer.deactivate();
 

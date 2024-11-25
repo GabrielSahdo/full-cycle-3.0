@@ -2,7 +2,6 @@ import CustomerModel from "../db/sequelize/model/customer.model.ts";
 import Customer from "../../domain/entity/customer.ts";
 import Address from "../../domain/entity/address.ts";
 import type CustomerRepositoryInterface from "../../domain/repository/customer.repository.interface.ts";
-import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
 
 export default class CustomerRepository implements CustomerRepositoryInterface {
     async create(entity: Customer): Promise<void> {
@@ -50,17 +49,22 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
 
         if (!foundCustomer) throw new Error("Customer not found");
 
-        const customer = new Customer(foundCustomer.id, foundCustomer.name);
+        let address;
 
         if (foundCustomer.street) {
-            const address = new Address(
+            address = new Address(
                 foundCustomer.street,
                 foundCustomer.number,
                 foundCustomer.zipcode,
                 foundCustomer.city,
             );
-            customer.setAddress(address, new EventDispatcher());
         }
+
+        const customer = new Customer(
+            foundCustomer.id,
+            foundCustomer.name,
+            address,
+        );
 
         if (foundCustomer.active) {
             customer.activate();
@@ -73,17 +77,18 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
         const customers = await CustomerModel.findAll();
 
         return customers.map((c) => {
-            const customer = new Customer(c.id, c.name);
+            let address;
 
             if (c.street) {
-                const address = new Address(
+                address = new Address(
                     c.street,
                     c.number,
                     c.zipcode,
                     c.city,
                 );
-                customer.setAddress(address, new EventDispatcher());
             }
+
+            const customer = new Customer(c.id, c.name, address);
 
             if (c.active) {
                 customer.activate();
