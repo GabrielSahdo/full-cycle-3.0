@@ -13,8 +13,8 @@ import type ProductRepositoryInterface from "../../domain/repository/product.rep
 import type CustomerRepositoryInterface from "../../domain/repository/customer.repository.interface.ts";
 import ProductRepository from "./product.repository.ts";
 import Product from "../../domain/entity/product.ts";
-import OrderItem from "../../domain/entity/order_item.ts";
-import Order from "../../domain/entity/order.ts";
+import OrderItem from "../../domain/checkout/entity/order_item.ts";
+import Order from "../../domain/checkout/entity/order.ts";
 import OrderRepository from "./order.repository.ts";
 import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
 

@@ -11,3 +11,9 @@ domain events:
     1. nao se prenda a getters e setters, e sim a mudanças de dominio
     2. deve representar uma acao do passado
     3. normalmente utilziado pra notificar outros 'bounded context'
+
+modulos:
+    1. respeitar linguagem ubiqua
+    2. baixo acoplamento
+    3. um ou mais agregados devem estar juntos somente se fazem sentido
+    4. organizar pelo dominio/subdominio e não pelo tipo de objetos

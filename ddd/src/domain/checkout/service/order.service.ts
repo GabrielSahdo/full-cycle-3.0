@@ -1,5 +1,5 @@
 import type OrderItem from "../entity/order_item.ts";
-import type Customer from "../entity/customer.ts";
+import type Customer from "../../entity/customer.ts";
 import Order from "../entity/order.ts";
 import { randomUUID } from "node:crypto";
 
