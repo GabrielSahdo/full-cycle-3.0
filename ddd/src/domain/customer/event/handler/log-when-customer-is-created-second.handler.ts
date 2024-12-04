@@ -1,4 +1,4 @@
-import EventHandlerInterface from "../../@shared/event-handler.interface.ts";
+import EventHandlerInterface from "../../../@shared/event/event-handler.interface.ts";
 import CustomerCreatedEvent from "../customer-created.event.ts";
 
 export default class LogWhenCustomerIsCreatedSecondHandler

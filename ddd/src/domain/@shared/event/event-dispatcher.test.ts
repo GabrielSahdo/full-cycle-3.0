@@ -3,8 +3,8 @@ import { assertExists } from "jsr:@std/assert/exists";
 import { describe, it } from "jsr:@std/testing/bdd";
 import { assertSpyCalls, spy } from "jsr:@std/testing/mock";
 import EventDispatcher from "./event-dispatcher.ts";
-import SendEmailWhenProductIsCreatedHandler from "../product/handler/send-email-when-product-is-created.handler.ts";
-import ProductCreatedEvent from "../product/product-created.event.ts";
+import SendEmailWhenProductIsCreatedHandler from "../../product/event/handler/send-email-when-product-is-created.handler.ts";
+import ProductCreatedEvent from "../../product/event/product-created.event.ts";
 
 describe("Domain Event Test", () => {
     it("should register an event handler", () => {

@@ -1,8 +1,8 @@
-import CustomerAddressChangedEvent from "../customer/customer-address-changed.event.ts";
-import CustomerCreatedEvent from "../customer/customer-created.event.ts";
-import LogWhenAddressIsChangedHandler from "../customer/handler/log-when-address-is-changed.handler.ts";
-import LogWhenCustomerIsCreatedFirstHandler from "../customer/handler/log-when-customer-is-created-first.handler.ts";
-import LogWhenCustomerIsCreatedSecondHandler from "../customer/handler/log-when-customer-is-created-second.handler.ts";
+import CustomerAddressChangedEvent from "../../customer/event/customer-address-changed.event.ts";
+import CustomerCreatedEvent from "../../customer/event/customer-created.event.ts";
+import LogWhenAddressIsChangedHandler from "../../customer/event/handler/log-when-address-is-changed.handler.ts";
+import LogWhenCustomerIsCreatedFirstHandler from "../../customer/event/handler/log-when-customer-is-created-first.handler.ts";
+import LogWhenCustomerIsCreatedSecondHandler from "../../customer/event/handler/log-when-customer-is-created-second.handler.ts";
 import EventDispatcher from "./event-dispatcher.ts";
 
 export default class EventDispatcherFactory {

@@ -1,4 +1,4 @@
-import EventHandlerInterface from "../../@shared/event-handler.interface.ts";
+import EventHandlerInterface from "../../../@shared/event/event-handler.interface.ts";
 import CustomerAddressChangedEvent from "../customer-address-changed.event.ts";
 
 export default class LogWhenAddressIsChangedHandler

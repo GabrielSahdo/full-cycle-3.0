@@ -4,12 +4,9 @@ import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { assertSpyCalls, spy } from "jsr:@std/testing/mock";
 
 import Customer from "./customer.ts";
-import Address from "./address.ts";
-import EventDispatcher from "../event/@shared/event-dispatcher.ts";
-import CustomerAddressChangedEvent from "../event/customer/customer-address-changed.event.ts";
-import LogWhenAddressIsChangedHandler from "../event/customer/handler/log-when-address-is-changed.handler.ts";
-import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface.ts";
-import EventDispatcherFactory from "../event/@shared/event.dispatcher.factory.ts";
+import Address from "../value-object/address.ts";
+import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface.ts";
+import EventDispatcherFactory from "../../@shared/event/event.dispatcher.factory.ts";
 
 describe("Customer Unit Tests", () => {
     let eventDispatcher: EventDispatcherInterface;

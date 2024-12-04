@@ -1,7 +1,7 @@
-import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface.ts";
-import CustomerAddressChangedEvent from "../event/customer/customer-address-changed.event.ts";
-import CustomerCreatedEvent from "../event/customer/customer-created.event.ts";
-import type Address from "./address.ts";
+import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface.ts";
+import CustomerAddressChangedEvent from "../event/customer-address-changed.event.ts";
+import CustomerCreatedEvent from "../event/customer-created.event.ts";
+import type Address from "../value-object/address.ts";
 
 interface CustomerProps {
     id: string;

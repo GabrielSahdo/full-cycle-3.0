@@ -1,11 +1,11 @@
 import { beforeEach, describe, it } from "jsr:@std/testing/bdd";
+import { assertSpyCalls, spy } from "jsr:@std/testing/mock";
 import { assertEquals } from "jsr:@std/assert";
 
 import Product from "../entity/product.ts";
 import ProductService from "./product.service.ts";
-import EventDispatcherMock from "../event/@shared/event-dispatcher.mock.ts";
+import EventDispatcherMock from "../../@shared/event/event-dispatcher.mock.ts";
 import ProductRepositoryMock from "../repository/product.repository.mock.ts";
-import { assertSpyCalls, spy } from "jsr:@std/testing/mock";
 
 describe("Product service unit test", () => {
     let service: ProductService;

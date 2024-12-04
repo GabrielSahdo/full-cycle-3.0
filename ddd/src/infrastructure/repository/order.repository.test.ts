@@ -7,16 +7,16 @@ import CustomerRepository from "./customer.repository.ts";
 import OrderModel from "../db/sequelize/model/order.model.ts";
 import OrderItemModel from "../db/sequelize/model/order-item.model.ts";
 import ProductModel from "../db/sequelize/model/product.model.ts";
-import Customer from "../../domain/entity/customer.ts";
-import Address from "../../domain/entity/address.ts";
-import type ProductRepositoryInterface from "../../domain/repository/product.repository.interface.ts";
-import type CustomerRepositoryInterface from "../../domain/repository/customer.repository.interface.ts";
+import Customer from "../../domain/customer/entity/customer.ts";
+import Address from "../../domain/customer/value-object/address.ts";
+import type ProductRepositoryInterface from "../../domain/product/repository/product.repository.interface.ts";
+import type CustomerRepositoryInterface from "../../domain/customer/repository/customer.repository.interface.ts";
 import ProductRepository from "./product.repository.ts";
-import Product from "../../domain/entity/product.ts";
+import Product from "../../domain/product/entity/product.ts";
 import OrderItem from "../../domain/checkout/entity/order_item.ts";
 import Order from "../../domain/checkout/entity/order.ts";
 import OrderRepository from "./order.repository.ts";
-import EventDispatcher from "../../domain/event/@shared/event-dispatcher.ts";
+import EventDispatcher from "../../domain/@shared/event/event-dispatcher.ts";
 
 describe("Order Repository Test", () => {
     let sequelize: Sequelize;

@@ -1,6 +1,6 @@
 import type Product from "../entity/product.ts";
-import EventDispatcherInterface from "../event/@shared/event-dispatcher.interface.ts";
-import ProductCreatedEvent from "../event/product/product-created.event.ts";
+import EventDispatcherInterface from "../../@shared/event/event-dispatcher.interface.ts";
+import ProductCreatedEvent from "../event/product-created.event.ts";
 import ProductRepositoryInterface from "../repository/product.repository.interface.ts";
 
 export default class ProductService {

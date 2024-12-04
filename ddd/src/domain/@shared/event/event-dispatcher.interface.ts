@@ -1,5 +1,5 @@
-import type EventHandlerInterface from "./event-handler.interface.ts";
-import type EventInterface from "./event.interface.ts";
+import type EventHandlerInterface from "../event/event-handler.interface.ts";
+import type EventInterface from "../event/event.interface.ts";
 
 export default interface EventDispatcherInterface {
     getEventHandlers(): Map<string, EventHandlerInterface[]>;

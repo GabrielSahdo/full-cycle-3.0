@@ -1,4 +1,4 @@
-import type EventHandlerInterface from "../../@shared/event-handler.interface.ts";
+import type EventHandlerInterface from "../../../@shared/event/event-handler.interface.ts";
 import type ProductCreatedEvent from "../product-created.event.ts";
 
 export default class SendEmailWhenProductIsCreatedHandler

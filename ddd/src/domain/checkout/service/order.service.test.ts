@@ -4,10 +4,10 @@ import { assertEquals } from "jsr:@std/assert";
 import Order from "../entity/order.ts";
 import OrderItem from "../entity/order_item.ts";
 import OrderService from "./order.service.ts";
-import Customer from "../../entity/customer.ts";
+import Customer from "../../customer/entity/customer.ts";
 import { assertThrows } from "jsr:@std/assert/throws";
-import EventDispatcher from "../../event/@shared/event-dispatcher.ts";
-import EventDispatcherFactory from "../../event/@shared/event.dispatcher.factory.ts";
+import EventDispatcher from "../../@shared/event/event-dispatcher.ts";
+import EventDispatcherFactory from "../../@shared/event/event.dispatcher.factory.ts";
 
 describe("Order service unit tests", () => {
     let eventDispatcher: EventDispatcher;

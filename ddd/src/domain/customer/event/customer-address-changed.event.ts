@@ -1,5 +1,5 @@
-import Customer from "../../entity/customer.ts";
-import EventInterface from "../@shared/event.interface.ts";
+import Customer from "../entity/customer.ts";
+import EventInterface from "../../@shared/event/event.interface.ts";
 
 export default class CustomerAddressChangedEvent implements EventInterface {
     dataTimeOcurred: Date;
