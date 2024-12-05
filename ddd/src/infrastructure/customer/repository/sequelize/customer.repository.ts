@@ -1,13 +1,13 @@
-import CustomerModel from "../db/sequelize/model/customer.model.ts";
-import Customer from "../../domain/customer/entity/customer.ts";
-import Address from "../../domain/customer/value-object/address.ts";
-import type CustomerRepositoryInterface from "../../domain/customer/repository/customer.repository.interface.ts";
-import EventDispatcher from "../../domain/@shared/event/event-dispatcher.ts";
-import CustomerCreatedEvent from "../../domain/customer/event/customer-created.event.ts";
-import LogWhenCustomerIsCreatedFirstHandler from "../../domain/customer/event/handler/log-when-customer-is-created-first.handler.ts";
-import LogWhenCustomerIsCreatedSecondHandler from "../../domain/customer/event/handler/log-when-customer-is-created-second.handler.ts";
-import CustomerAddressChangedEvent from "../../domain/customer/event/customer-address-changed.event.ts";
-import LogWhenAddressIsChangedHandler from "../../domain/customer/event/handler/log-when-address-is-changed.handler.ts";
+import CustomerModel from "./customer.model.ts";
+import Customer from "../../../../domain/customer/entity/customer.ts";
+import Address from "../../../../domain/customer/value-object/address.ts";
+import type CustomerRepositoryInterface from "../../../../domain/customer/repository/customer.repository.interface.ts";
+import EventDispatcher from "../../../../domain/@shared/event/event-dispatcher.ts";
+import CustomerCreatedEvent from "../../../../domain/customer/event/customer-created.event.ts";
+import LogWhenCustomerIsCreatedFirstHandler from "../../../../domain/customer/event/handler/log-when-customer-is-created-first.handler.ts";
+import LogWhenCustomerIsCreatedSecondHandler from "../../../../domain/customer/event/handler/log-when-customer-is-created-second.handler.ts";
+import CustomerAddressChangedEvent from "../../../../domain/customer/event/customer-address-changed.event.ts";
+import LogWhenAddressIsChangedHandler from "../../../../domain/customer/event/handler/log-when-address-is-changed.handler.ts";
 
 export default class CustomerRepository implements CustomerRepositoryInterface {
     async create(entity: Customer): Promise<void> {

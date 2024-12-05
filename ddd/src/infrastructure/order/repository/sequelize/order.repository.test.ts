@@ -2,21 +2,21 @@ import { afterEach, beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { assertEquals, assertRejects } from "jsr:@std/assert";
 import { Sequelize } from "npm:sequelize-typescript";
 
-import CustomerModel from "../db/sequelize/model/customer.model.ts";
-import CustomerRepository from "./customer.repository.ts";
-import OrderModel from "../db/sequelize/model/order.model.ts";
-import OrderItemModel from "../db/sequelize/model/order-item.model.ts";
-import ProductModel from "../db/sequelize/model/product.model.ts";
-import Customer from "../../domain/customer/entity/customer.ts";
-import Address from "../../domain/customer/value-object/address.ts";
-import type ProductRepositoryInterface from "../../domain/product/repository/product.repository.interface.ts";
-import type CustomerRepositoryInterface from "../../domain/customer/repository/customer.repository.interface.ts";
-import ProductRepository from "./product.repository.ts";
-import Product from "../../domain/product/entity/product.ts";
-import OrderItem from "../../domain/checkout/entity/order_item.ts";
-import Order from "../../domain/checkout/entity/order.ts";
+import CustomerModel from "../../../customer/repository/sequelize/customer.model.ts";
+import CustomerRepository from "../../../customer/repository/sequelize/customer.repository.ts";
+import OrderModel from "./order.model.ts";
+import OrderItemModel from "./order-item.model.ts";
+import ProductModel from "../../../product/repository/sequelize/product.model.ts";
+import Customer from "../../../../domain/customer/entity/customer.ts";
+import Address from "../../../../domain/customer/value-object/address.ts";
+import type ProductRepositoryInterface from "../../../../domain/product/repository/product.repository.interface.ts";
+import type CustomerRepositoryInterface from "../../../../domain/customer/repository/customer.repository.interface.ts";
+import ProductRepository from "../../../product/repository/sequelize/product.repository.ts";
+import Product from "../../../../domain/product/entity/product.ts";
+import OrderItem from "../../../../domain/checkout/entity/order_item.ts";
+import Order from "../../../../domain/checkout/entity/order.ts";
 import OrderRepository from "./order.repository.ts";
-import EventDispatcher from "../../domain/@shared/event/event-dispatcher.ts";
+import EventDispatcher from "../../../../domain/@shared/event/event-dispatcher.ts";
 
 describe("Order Repository Test", () => {
     let sequelize: Sequelize;

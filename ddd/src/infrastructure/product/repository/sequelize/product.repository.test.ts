@@ -2,8 +2,8 @@ import { afterEach, beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { assertEquals, assertRejects } from "jsr:@std/assert";
 import { Sequelize } from "npm:sequelize-typescript";
 
-import ProductModel from "../db/sequelize/model/product.model.ts";
-import Product from "../../domain/product/entity/product.ts";
+import ProductModel from "./product.model.ts";
+import Product from "../../../../domain/product/entity/product.ts";
 import ProductRepository from "./product.repository.ts";
 
 describe("ProductRepository test", () => {

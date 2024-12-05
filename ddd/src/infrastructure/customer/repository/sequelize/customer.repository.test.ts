@@ -2,18 +2,12 @@ import { afterEach, beforeEach, describe, it } from "jsr:@std/testing/bdd";
 import { assertEquals, assertRejects } from "jsr:@std/assert";
 import { Sequelize } from "npm:sequelize-typescript";
 
-import CustomerModel from "../db/sequelize/model/customer.model.ts";
-import Customer from "../../domain/customer/entity/customer.ts";
-import Address from "../../domain/customer/value-object/address.ts";
+import CustomerModel from "./customer.model.ts";
+import Customer from "../../../../domain/customer/entity/customer.ts";
+import Address from "../../../../domain/customer/value-object/address.ts";
 import CustomerRepository from "./customer.repository.ts";
-import EventDispatcher from "../../domain/@shared/event/event-dispatcher.ts";
-import CustomerCreatedEvent from "../../domain/customer/event/customer-created.event.ts";
-import LogWhenCustomerIsCreatedFirstHandler from "../../domain/customer/event/handler/log-when-customer-is-created-first.handler.ts";
-import LogWhenCustomerIsCreatedSecondHandler from "../../domain/customer/event/handler/log-when-customer-is-created-second.handler.ts";
-import CustomerAddressChangedEvent from "../../domain/customer/event/customer-address-changed.event.ts";
-import LogWhenAddressIsChangedHandler from "../../domain/customer/event/handler/log-when-address-is-changed.handler.ts";
-import EventDispatcherInterface from "../../domain/@shared/event/event-dispatcher.interface.ts";
-import EventDispatcherFactory from "../../domain/@shared/event/event.dispatcher.factory.ts";
+import EventDispatcherInterface from "../../../../domain/@shared/event/event-dispatcher.interface.ts";
+import EventDispatcherFactory from "../../../../domain/@shared/event/event.dispatcher.factory.ts";
 
 describe("Customer Repository Test", () => {
     let sequelize: Sequelize;
